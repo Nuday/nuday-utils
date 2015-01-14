@@ -3,7 +3,7 @@
 
 (def log-time?
   "If true **at compile time**, enables logging of elapsed time."
-  (Boolean/getBoolean "nuday.logTime"))
+  (Boolean/getBoolean "nuday.utils.logging.logTime"))
 
 (defmacro log-time
   "Evaluates the body, logs the time it took by appending \"in %d ms\" to the
