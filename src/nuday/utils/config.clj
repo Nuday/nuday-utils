@@ -1,4 +1,4 @@
-(ns nuday.utils.config.env
+(ns nuday.utils.config
   (:require [environ.core :refer [env]]))
 
 (defn get-str
