@@ -40,8 +40,7 @@
   (when input
     (->> input
          (filter #(f (key %) (val %)))
-         flatten
-         (apply hash-map))))
+         (into {}))))
 
 (defn mmap
   "Maps keys and values of input data with function f and returns the result as a
@@ -62,8 +61,7 @@
               #(f %))]
       (->> input
            (map f)
-           flatten
-           (apply hash-map)))))
+           (into {})))))
 
 (defn rename-keys
   "Given a map m, and a function f, renames the keys in m by applying f to each
