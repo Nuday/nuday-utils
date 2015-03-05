@@ -10,6 +10,9 @@
   (s/both s/Str 
           (s/pred (comp not empty?) 'not-empty?)))
 
+(def Truthy
+  Any)
+
 (def UuidStr
   (s/both s/Str
           (s/pred uuid? 'uuid?)))
