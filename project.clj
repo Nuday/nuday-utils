@@ -4,6 +4,7 @@
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/tools.logging "0.2.6"]
                  [environ "1.0.0"]
                  [prismatic/schema "0.3.3"]]
 
@@ -12,6 +13,7 @@
   :profiles {:dev {:dependencies [[pjstadig/humane-test-output "0.6.0"]]
                    :injections [(require 'pjstadig.humane-test-output)
                                 (pjstadig.humane-test-output/activate!)]
+                   :jvm-opts ["-Dnuday.utils.logging.logTime=true"]
                    :source-paths ["src" "dev"]}
 
              :test {;; dev/user.clj breaks the build in test mode
