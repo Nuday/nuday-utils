@@ -38,6 +38,26 @@
     (is (= (util/shuffle-with-seed (range 1000) 1234567)
            (util/shuffle-with-seed (range 1000) 1234567)))))
 
+(deftest strict-concat
+  (testing "No args yields empty list"
+    (is (= [] (util/strict-concat))))
+
+  (testing "Nil yields empty list"
+    (is (= [] (util/strict-concat nil)))
+    (is (= [] (util/strict-concat nil nil))))
+
+  (testing "Nil does not appear in list"
+    (is (= [1 2 3 4] (util/strict-concat nil [1 2] [3 4])))
+    (is (= [1 2 3 4] (util/strict-concat [1 2] nil [3 4])))
+    (is (= [1 2 3 4] (util/strict-concat [1 2] [3 4] nil))))
+
+  (testing "Big list"
+    (let [xs (->> (range 1000)
+                  (map #(let [start (* % 1000)] (range start (+ start 1000))))
+                  (apply util/strict-concat))]
+      (is (= (range 10) (take 10 xs)))
+      (is (= (range 999990 1000000) (drop 999990 xs))))))
+
 (deftest take-rand
   (testing "coll must be nil or collection"
     (is (thrown? AssertionError (util/take-rand 1 1)))
