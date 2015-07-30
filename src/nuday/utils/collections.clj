@@ -25,6 +25,14 @@
       (java.util.Collections/shuffle al rnd)
       (clojure.lang.RT/vector (.toArray al)))))
 
+;; See http://stuartsierra.com/2015/04/26/clojure-donts-concat
+(defn strict-concat [& lists]
+  (loop [acc []
+         [list & lists] lists]
+    (if (and (nil? list) (nil? lists))
+      acc
+      (recur (into acc list) lists))))
+
 (defn take-rand
   "Returns n randomly selected items from coll, or all items if there are fewer than n.
   No item will be picked more than once."
