@@ -22,7 +22,7 @@
   with the function f (as per clojure.core/update-in)."
   [m ks f & args]
   (if-not (nil? (get-in m ks))
-    (apply update-in (concat [m ks f] args))
+    (apply update-in m ks f args)
     m))
 
 (defn mfilter
@@ -32,15 +32,18 @@
   *Examples*
 
       (maps/mfilter (fn [k v] (not= :foo k)) {:foo 1, :bar 2, :baz 3})
-      ;=> {\"bar\" 2, \"baz\" 3}
+      ;=> {:bar 2, :baz 3}
 
       (maps/mfilter (fn [k v] (not (nil? v))) {:foo 1, :bar nil, :baz 3})
-      ;=> {\"foo\" 1, \"baz\" 3}"
+      ;=> {:foo 1, :baz 3}"
   [f input]
   (when input
-    (->> input
-         (filter #(f (key %) (val %)))
-         (into {}))))
+    (reduce (fn [acc [k v]]
+              (if (f k v)
+                (assoc acc k v)
+                acc))
+            {}
+            input)))
 
 (defn mmap
   "Maps keys and values of input data with function f and returns the result as a
@@ -59,9 +62,7 @@
     (let [f (if (map? input)
               #(f (key %) (val %))
               #(f %))]
-      (->> input
-           (map f)
-           (into {})))))
+      (reduce #(conj %1 (f %2)) {} input))))
 
 (defn rename-keys
   "Given a map m, and a function f, renames the keys in m by applying f to each
@@ -69,16 +70,18 @@
   [m f]
   (if (map? f)
     (clojure.set/rename-keys m f)
-    (->> m
-         (mmap #(vector (f %1) %2)))))
+    (mmap #(vector (f %1) %2) m)))
 
 (defn replace-nils
   "Given a map m, all keys in ks with nil values will be replaced with value v."
   [m ks v]
-  (let [replace? #(and (contains? (set ks) %1) (nil? %2))]
-    (->> m
-         (mmap (fn [k cur-v] [k (if (replace? k cur-v) v cur-v)])))))
+  (reduce-kv (fn [acc k the-v]
+               (if (nil? the-v)
+                 (assoc acc k v)
+                 acc))
+             m
+             (select-keys m ks)))
 
 (def dissoc-nils
   "Given a map, removes every key/value pairs for which the value is nil."
-  (partial mfilter (fn [_ v] (not (nil? v)))))
+  (partial mfilter (fn [_ v] (some? v))))
