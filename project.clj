@@ -4,11 +4,11 @@
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/tools.logging "0.2.6"]
+                 [org.clojure/tools.logging "0.3.1"]
                  [environ "1.0.0"]
-                 [prismatic/schema "0.4.2"]]
+                 [prismatic/schema "0.4.4"]]
 
-  :plugins [[org.clojars.cvillecsteele/lein-git-version "1.0.2"]]
+  :plugins [[org.clojars.cvillecsteele/lein-git-version "1.0.3"]]
 
   :profiles {:dev {:dependencies [[pjstadig/humane-test-output "0.6.0"]]
                    :injections [(require 'pjstadig.humane-test-output)

@@ -6,8 +6,8 @@
   "Returns true if the difference between floating-point numbers x and y is less than or
   equal to 0.01, or the value of the optional tolerance arg."
   [x y & [tolerance]]
-  (and (not (nil? x))
-       (not (nil? y))
+  (and (some? x)
+       (some? y)
        (<= (Math/abs (- x y)) (or tolerance 0.01))))
 
 (defn with-mocks
