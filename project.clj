@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [environ "1.0.0"]
-                 [prismatic/schema "0.4.4"]]
+                 [prismatic/schema "1.0.1"]]
 
   :plugins [[org.clojars.cvillecsteele/lein-git-version "1.0.2"]]
 
