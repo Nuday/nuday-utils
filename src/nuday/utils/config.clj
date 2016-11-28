@@ -14,6 +14,10 @@
   [prop-name default]
   (Integer/valueOf (get-str prop-name (str default))))
 
+(defn get-long
+  [prop-name default]
+  (Long/valueOf (get-str prop-name (str default))))
+
 (defn get-float
   [prop-name default]
   (Float/valueOf (get-str prop-name (str default))))
