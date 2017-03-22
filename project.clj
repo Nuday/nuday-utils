@@ -1,4 +1,4 @@
-(defproject nuday-utils "0.1.0-SNAPSHOT"  ; handled by lein-git-version
+(defproject nuday-utils "0.1.0-SNAPSHOT" ; handled by lein-git-version
   :description "Nuday Clojure utilities"
   :url "https://github.com/Nuday/nuday-utils"
   :license {:name "MIT License"
@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [environ "1.1.0"]
-                 [prismatic/schema "1.1.3"]]
+                 [prismatic/schema "1.1.4"]]
 
   :plugins [[org.clojars.cvillecsteele/lein-git-version "1.0.3"]]
 
