@@ -8,7 +8,6 @@ Throws exception if resource doesn't exist."
   [resource-name]
   (if-let [resource (io/resource resource-name)]
     (-> resource
-        io/file
         slurp
         edn/read-string)
     (throw (ex-info "Resource does not exist."
