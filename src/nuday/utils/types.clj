@@ -1,5 +1,6 @@
 (ns nuday.utils.types
-  (:require [schema.core :as s :refer [Any Keyword Str]]
+  (:require [clojure.java.io :refer [resource]]
+            [schema.core :as s :refer [Any Keyword Str]]
             [instaparse.core :as instaparse]))
 
 (def ^:private uuid?
