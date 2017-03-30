@@ -6,7 +6,10 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.logging "0.3.1"]
                  [environ "1.1.0"]
-                 [prismatic/schema "1.1.4"]]
+                 [prismatic/schema "1.1.4"]
+                 [instaparse "1.4.5"]]
+
+  :resource-paths ["resources"]
 
   :plugins [[org.clojars.cvillecsteele/lein-git-version "1.0.3"]]
 
