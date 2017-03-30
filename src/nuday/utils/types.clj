@@ -1,6 +1,7 @@
 (ns nuday.utils.types
-  (:require [clojure.java.io :refer [resource]]
-            [schema.core :as s :refer [Any Keyword Str]]
+  (:require [clojure.string :refer [blank?]]
+            [clojure.java.io :refer [resource]]
+            [schema.core :as s]
             [instaparse.core :as instaparse]))
 
 (def ^:private uuid?
@@ -18,19 +19,13 @@
 
 (def URL (s/pred url? 'URL))
 
-(def Map
-  {Keyword Any})
+(def Map {s/Keyword s/Any})
 
-(def NonEmptyStr
-  (s/both Str
-          (s/pred (comp not empty?) 'not-empty?)))
+(def NonEmptyStr (s/constrained s/Str (complement blank?) 'filled-str?))
 
-(def Truthy
-  Any)
+(def Truthy s/Any)
 
-(def UuidStr
-  (s/both Str
-          (s/pred uuid? 'uuid?)))
+(def UuidStr (s/constrained s/Str uuid? 'uuid?))
 
 (defn between?
   "Predicate that validates that the number of items in a collection or a scalar
