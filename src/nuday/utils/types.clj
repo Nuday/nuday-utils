@@ -1,5 +1,6 @@
 (ns nuday.utils.types
-  (:require [schema.core :as s :refer [Any Keyword]]))
+  (:require [schema.core :as s :refer [Any Keyword Str]]
+            [instaparse.core :as instaparse]))
 
 (def ^:private uuid?
   (partial re-matches
@@ -20,14 +21,14 @@
   {Keyword Any})
 
 (def NonEmptyStr
-  (s/both s/Str 
+  (s/both Str
           (s/pred (comp not empty?) 'not-empty?)))
 
 (def Truthy
   Any)
 
 (def UuidStr
-  (s/both s/Str
+  (s/both Str
           (s/pred uuid? 'uuid?)))
 
 (defn between?
