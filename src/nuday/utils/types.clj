@@ -11,13 +11,24 @@
 (def ^:private url-parser
   (instaparse/parser (resource "url.abnf") :input-format :abnf))
 
+(def ^:private email-parser
+  (instaparse/parser (resource "email.abnf") :input-format :abnf))
+
 (defn- url? [url]
   (-> url
       url-parser
       instaparse/failure?
       not))
 
+(defn- email? [email]
+  (-> email
+      email-parser
+      instaparse/failure?
+      not))
+
 (def URL (s/pred url? 'URL))
+
+(def Email (s/pred email? 'email))
 
 (def Map {s/Keyword s/Any})
 
